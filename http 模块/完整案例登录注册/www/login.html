@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  用户名：<input type="text" id="username"><br>
+  密码：<input type="text" type="password" id="password"><br>
+  <button id="login">登录</button>
+  <button id="reg">注册</button>
+</body>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $('#login').click(() => {
+      $.ajax({
+        url: '/login',
+        dataType: 'json',  // 接收数据类型，所以下面 res.err 可以直接使用
+        method: 'get',
+        data: {
+          username: $('#username').val(),
+          password: $('#password').val()
+        },
+        success(res){
+          if (res.err) {
+            alert(res.msg)
+          } else {
+            location.href = './success.html'
+          }
+        }
+      })
+    })
+    $('#reg').click(() => {
+      $.ajax({
+        url: '/reg',
+        dataType: 'json',
+        method: 'post',
+        data: {
+          username: $('#username').val(),
+          password: $('#password').val()
+        },
+        success(res){
+          alert(res.msg);
+        }
+      })
+    })
+  </script>
+</html>
